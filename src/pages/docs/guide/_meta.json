@@ -2,5 +2,5 @@
     "get-all-courses": "Get All Courses",
     "search-by-course-id": "Search by Course ID",
     "search-by-course-code": "Search by Course Code",
-    "search-by-course-department": "Search by Course Department"
+    "search-by-department": "Search by Course Department"
 }
