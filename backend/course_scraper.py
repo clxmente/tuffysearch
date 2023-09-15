@@ -1,7 +1,11 @@
 import json, requests, bs4
 
-from rich.progress import track
+from rich.live import Live
+from rich.panel import Panel
+from rich.table import Table
+from concurrent.futures import ThreadPoolExecutor
 from modules.course_departments import CourseDepartments
+from rich.progress import TaskID, Progress, BarColumn, SpinnerColumn, TextColumn
 
 PageElement = bs4.element.Tag | bs4.element.NavigableString | None
 
@@ -52,8 +56,8 @@ def get_course_info(
     """
     course_header = expanded_element.find("h3").text.strip()
 
-    course_code = course_header.split("-")[0]
-    course_title = course_header.split("-")[1]
+    course_code = course_header.split("-", maxsplit=1)[0]
+    course_title = course_header.split("-", maxsplit=1)[1]
     course_title = course_title.split("(")[0].strip()
     course_description = (
         expanded_element.find("h3").find_next_sibling("hr").next_sibling.strip()
@@ -77,7 +81,6 @@ def get_course_info(
     return course
 
 
-# TODO: wrap the call to this function in a try catch except ValueError for the zip function
 def loop_through_courses(
     expanded_table: PageElement,
     unexpanded_table: PageElement,
@@ -122,29 +125,80 @@ def loop_through_courses(
         courses[course_id] = course
 
 
+job_progress = Progress(
+    TextColumn("[bold blue]{task.description}", justify="left"),
+    BarColumn(bar_width=None),
+    SpinnerColumn(finished_text="✅"),
+)
+
+
+def process_page(
+    expanded_url: str,
+    unexpanded_url: str,
+    courses: dict[str, dict[str, str]],
+    CD: CourseDepartments,
+    task_id: TaskID,
+) -> None:
+    expanded_page = requests.get(expanded_url)
+    job_progress.update(task_id, advance=0.25)
+    unexpanded_page = requests.get(unexpanded_url)
+    job_progress.update(task_id, advance=0.25)
+
+    expanded_soup = bs4.BeautifulSoup(expanded_page.text, "html.parser")
+    job_progress.update(task_id, advance=0.125)
+    unexpanded_soup = bs4.BeautifulSoup(unexpanded_page.text, "html.parser")
+    job_progress.update(task_id, advance=0.125)
+
+    expanded_table = get_courses_table(expanded_soup)
+    unexpanded_table = get_courses_table(unexpanded_soup)
+
+    loop_through_courses(
+        expanded_table=expanded_table,
+        unexpanded_table=unexpanded_table,
+        courses=courses,
+        CD=CD,
+    )
+    job_progress.update(task_id, advance=0.25)
+    overall_progress.update(overall_task, advance=1)
+
+
+overall_progress = Progress(
+    TextColumn("[bold blue]{task.description}", justify="left"),
+    BarColumn(bar_width=None),
+    TextColumn("[bold blue]{task.completed}/{task.total}"),
+)
+overall_task = overall_progress.add_task("All Pages", total=len(EXPANDED_URLS))
+
+progress_table = Table().grid()
+progress_table.add_row(
+    Panel.fit(
+        overall_progress, title="[b]All Pages", border_style="green", padding=(2, 2)
+    )
+)
+progress_table.add_row(
+    Panel.fit(job_progress, title="[b]Pages", border_style="red", padding=(2, 2))
+)
+
 if __name__ == "__main__":
     CourseDepartments = CourseDepartments(navoid=11034, catoid=80)
 
     Courses = {}
-    # loop through both expanded and unexpanded urls with index
-    for expanded_url, unexpanded_url in track(
-        zip(EXPANDED_URLS, UNEXPANDED_URLS), total=len(EXPANDED_URLS)
-    ):
-        expanded_page = requests.get(expanded_url)
-        unexpanded_page = requests.get(unexpanded_url)
-
-        expanded_soup = bs4.BeautifulSoup(expanded_page.text, "html.parser")
-        unexpanded_soup = bs4.BeautifulSoup(unexpanded_page.text, "html.parser")
-
-        expanded_table = get_courses_table(expanded_soup)
-        unexpanded_table = get_courses_table(unexpanded_soup)
-
-        loop_through_courses(
-            expanded_table=expanded_table,
-            unexpanded_table=unexpanded_table,
-            courses=Courses,
-            CD=CourseDepartments,
-        )
+    with Live(progress_table, refresh_per_second=10):
+        with ThreadPoolExecutor() as pool:
+            for i, (expanded_url, unexpanded_url) in enumerate(
+                zip(EXPANDED_URLS, UNEXPANDED_URLS)
+            ):
+                task_id = job_progress.add_task(f"Page {i + 1}", total=1)
+                pool.submit(
+                    process_page,
+                    expanded_url,
+                    unexpanded_url,
+                    Courses,
+                    CourseDepartments,
+                    task_id,
+                )
 
     with open("courses.json", "w") as f:
         json.dump(Courses, f, indent=2)
+
+# TODO: handle dashes in course h3 titles
