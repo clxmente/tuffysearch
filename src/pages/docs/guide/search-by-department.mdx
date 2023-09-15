@@ -1,0 +1,34 @@
+# Search by Department
+
+<small>Returns a list of courses in a department</small>
+
+Searches the CSUF course catalog for courses from a given department.
+
+### Endpoint
+
+```bash
+GET /courses/department/{department}
+```
+
+### Parameters
+
+`department` - The department to search for. This can be either the department's **name** or the **abbreviation**.
+If there are spaces in the department name, replace them with a dash (`-`).
+
+### Response Example
+
+```json filename="GET /courses/department/CPSC"
+{
+  "success": true,
+  "data": [
+    {
+        "title": "Object-Oriented Programming",
+        "description": "The object-oriented programming paradigm: ...",
+        "department": "Computer Science",
+        "course_code": "CPSC 121",
+        "course_id": 538057
+    },
+    { ... }
+  ]
+}
+```

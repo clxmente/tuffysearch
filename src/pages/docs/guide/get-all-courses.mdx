@@ -1,0 +1,35 @@
+import { Callout } from "nextra/components";
+
+# Get All Courses
+
+<small>Returns a list of all CSUF courses for the current catalog year.</small>
+
+<Callout type="error" emoji="🚫">
+  This endpoint is currently not available while I figure out how to rate limit
+  requests. If you're interested in a full list of courses, checkout the
+  [github](https://github.com/clxmente/tuffysearch) repository.
+</Callout>
+
+### Endpoint
+
+```bash
+GET /courses
+```
+
+### Response Example
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Object-Oriented Programming",
+            "description": "The object-oriented programming paradigm: classes, member functions, interfaces, inheritance, polymorphism, and exceptions. ...",
+            "department": "Computer Science",
+            "course_code": "CPSC 121",
+            "course_id": 538057
+        },
+        {...}
+    ]
+}
+```

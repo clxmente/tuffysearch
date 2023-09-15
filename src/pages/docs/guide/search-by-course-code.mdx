@@ -1,0 +1,40 @@
+import { Callout } from "nextra/components";
+
+# Search by Course Code
+
+<small>Returns a `CourseObject` for the given course code.</small>
+
+<Callout type="info">
+  There are some duplicates in the course catalog with the same course code. For
+  example, there are three courses with the code `ETHN 490`. They all have the
+  same information except the `course_id`. Be sure to check for this when using
+  this endpoint.
+</Callout>
+
+Searches the CSUF course catalog for a course with the given course code.
+
+If no course is found, the `data` field will be `null`.
+
+### Endpoint
+
+```bash
+GET /courses/course_code/{course_code}
+```
+
+### Parameters
+
+`course_code` - The course code to search for. If there are spaces in the course code, replace them with a dash (`-`).
+
+### Response Example
+
+```json filename="GET /courses/course_code/CPSC-121"
+{
+  "success": true,
+  "data": {
+    "title": "Object-Oriented Programming",
+    "description": "The object-oriented programming paradigm: ...",
+    "course_code": "CPSC 121",
+    "course_id": 538057
+  }
+}
+```

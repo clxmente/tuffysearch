@@ -1,0 +1,75 @@
+import { Card, Cards } from "nextra/components";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
+
+# Guide
+
+<small>Information and examples on how to use the API.</small>
+
+## Endpoint Guides
+
+Examples and code snippets will be available on each page. Here is a list of
+endpoints available in the API:
+
+<Cards>
+  <Card
+    icon={<GlobeAltIcon />}
+    title="Get all Courses"
+    href="/docs/guide/get-all-courses"
+  />
+  <Card
+    icon={<GlobeAltIcon />}
+    title="Search by Course ID"
+    href="/docs/guide/search-by-course-id"
+  />
+  <Card
+    icon={<GlobeAltIcon />}
+    title="Search by Course Code"
+    href="/docs/guide/search-by-course-code"
+  />
+  <Card
+    icon={<GlobeAltIcon />}
+    title="Search by Department"
+    href="/docs/guide/search-by-department"
+  />
+</Cards>
+
+## Base URL
+
+All endpoints in the API have the same base URL:
+
+```
+https://tuffysearch.com/api
+```
+
+## Response Structure
+
+All responses from the API will be sent in the following JSON format. The `error` field will only be present if `success` is `false`.
+
+```json
+{
+  "success": boolean,
+  "data": CourseObject[] | CourseObject | null,
+  "error": ErrorObject | undefined,
+}
+```
+
+#### CourseObject Type
+
+```json
+{
+  "title": string,
+  "description": string,
+  "department": string,
+  "course_id": number,
+  "course_code": string,
+}
+```
+
+#### ErrorObject Type
+
+```json
+{
+  "message": string,
+  "code": string,
+}
+```

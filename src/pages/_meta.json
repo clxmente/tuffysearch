@@ -1,0 +1,17 @@
+{
+    "index": {
+        "type": "page",
+        "title": "Home",
+        "display": "hidden"
+    },
+    "docs": {
+        "type": "page",
+        "title": "Documentation"
+    },
+      "contact": {
+        "title": "Contact ↗",
+        "type": "page",
+        "href": "https://solorio.dev/contact",
+        "newWindow": true
+      }
+}
