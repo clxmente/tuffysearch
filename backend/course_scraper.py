@@ -1,8 +1,9 @@
-import json, requests, bs4
+import os, bs4, json, requests
 
 from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
+from modules.console import console
 from concurrent.futures import ThreadPoolExecutor
 from modules.course_departments import CourseDepartments
 from rich.progress import TaskID, Progress, BarColumn, SpinnerColumn, TextColumn
@@ -48,9 +49,8 @@ def get_course_info(
         {
             "title": "Financial Accounting",\n
             "description": "Accounting concepts and techniques essential to the ...",\n
-            "department_abbr": "ACCT",\n
             "department": "Accounting",\n
-            "course_number": "201A",\n
+            "course_code": "ACCT 201A",\n
             "course_id": 537360,\n
         }
     """
@@ -69,9 +69,8 @@ def get_course_info(
     course = {
         "title": course_title.strip(),
         "description": course_description.strip(),
-        "course_number": course_number.strip(),
-        "department_abbr": department_abbr.strip(),
         "department": CD.get_department_name(department_abbr),
+        "course_code": course_code.strip(),
         "course_id": course_id,
     }
 
@@ -96,7 +95,7 @@ def loop_through_courses(
         CD (CourseDepartments): CourseDepartments class instance used for getting the department name.
     """
 
-    # ! For some reason, the table body is not found in the soup.
+    # ! For some reason, the table body is not found in da soup.
     # expanded_body = expanded_table.find("tbody")
     # unexpanded_body = unexpanded_table.find("tbody")
 
@@ -198,7 +197,6 @@ if __name__ == "__main__":
                     task_id,
                 )
 
-    with open("courses.json", "w") as f:
+    filename = "2023-2024_catalog.json"
+    with open(os.path.join(os.getcwd(), "data", filename), "w") as f:
         json.dump(Courses, f, indent=2)
-
-# TODO: handle dashes in course h3 titles
