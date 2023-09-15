@@ -48,7 +48,21 @@ const config: DocsThemeConfig = {
     text: "MIT 2023 | Made with ❤️ by clemente",
   },
   primaryHue: 28,
-  gitTimestamp: "Last updated on",
+  gitTimestamp: function GitTimestamp({ timestamp }) {
+    const { locale } = useRouter();
+    return (
+      <>
+        Last updated on{" "}
+        <time dateTime={timestamp.toISOString()}>
+          {timestamp.toLocaleDateString(locale, {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </time>
+      </>
+    );
+  },
 };
 
 export default config;
