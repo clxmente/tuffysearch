@@ -2,7 +2,12 @@ import { Button } from "@/components/ui/button";
 
 export function GithubIcon() {
   return (
-    <Button variant="outline" size="icon" asChild>
+    <Button
+      variant="outline"
+      size="icon"
+      asChild
+      className="bg-transparent dark:bg-transparent"
+    >
       <a
         href="https://github.com/clxmente/tuffysearch"
         target="_blank"
