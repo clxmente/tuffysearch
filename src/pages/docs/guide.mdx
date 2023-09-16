@@ -44,11 +44,12 @@ https://tuffysearch.com/api
 ## Response Structure
 
 All responses from the API will be sent in the following JSON format. The `error` field will only be present if `success` is `false`.
+`data` will always be a **list** if there are results (even if only one result is found), or `null` if there are no results.
 
 ```json
 {
   "success": boolean,
-  "data": CourseObject[] | CourseObject | null,
+  "data": CourseObject[] | null,
   "error": ErrorObject | undefined,
 }
 ```
