@@ -23,7 +23,20 @@ GET /courses/course_code/{course_code}
 
 ### Parameters
 
-`course_code` - The course code to search for. If there are spaces in the course code, replace them with a dash (`-`).
+| Name          | Description                                                   | Example    |
+| ------------- | ------------------------------------------------------------- | ---------- |
+| `course_code` | A code containing an abbreviated department and course number | `CPSC-121` |
+
+### Responses
+
+| Code  | Description                                       |
+| ----- | ------------------------------------------------- |
+| `200` | A JSON Object containing a list of `CourseObject` |
+| `400` | Client Error. Malformed request syntax            |
+| `404` | Course not found                                  |
+| `405` | The request method was not `GET`                  |
+| `429` | Too many requests. Client was rate limited        |
+| `500` | An unknown internal server error occurred         |
 
 ### Response Example
 

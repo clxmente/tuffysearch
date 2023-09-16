@@ -1,4 +1,8 @@
+import Image from "next/image";
+
 # Introduction
+
+![TuffySearch](/tuffysearch.png)
 
 Welcome to the TuffySearch API docs! This comprehensive guide is designed to assist student developers in harnessing the power
 of our API to access detailed course information _effortlessly_. Dive into our documentation to explore the capabilities
@@ -10,6 +14,13 @@ The TuffySearch API was created to provide a simple and easy way for students to
 the driving force behind this API was the headache of having to scrape and process the HTML of the course catalog to get
 the information I needed. By streamlining the process of accessing course information, we hope to encourage students to
 create more innovative and useful applications for all CSUF students.
+
+## Where does the data come from?
+
+The data for the TuffySearch API is sourced from the [CSUF Course Catalog](https://catalog.fullerton.edu/). The data is
+scraped and processed using a custom-built web scraper. The scraper is written in Python and uses the [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+library to parse the HTML of the course catalog. The data is then stored in a MySQL database and served to you through
+our API.
 
 ## Join other CSUF developers
 

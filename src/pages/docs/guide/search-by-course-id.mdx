@@ -16,7 +16,20 @@ GET /courses/course_id/{course_id}
 
 ### Parameters
 
-`course_id` - The course id to search for. This is typically a 6-digit number.
+| Name        | Description                         | Example  |
+| ----------- | ----------------------------------- | -------- |
+| `course_id` | The ID of the course to search for. | `538057` |
+
+### Responses
+
+| Code  | Description                                       |
+| ----- | ------------------------------------------------- |
+| `200` | A JSON Object containing a list of `CourseObject` |
+| `400` | Client Error. Malformed request syntax            |
+| `404` | Course not found                                  |
+| `405` | The request method was not `GET`                  |
+| `429` | Too many requests. Client was rate limited        |
+| `500` | An unknown internal server error occurred         |
 
 ### Response Example
 

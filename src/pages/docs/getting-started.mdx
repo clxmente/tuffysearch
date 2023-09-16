@@ -1,0 +1,72 @@
+import { Tabs } from "nextra/components";
+
+# Getting Started
+
+## What is an API?
+
+An API is an **Application Programming Interface**. It is a set of rules and protocols for building
+and interacting with software applications. You can think of an API as a menu in a restaurant: The
+meny provides a list of dishes you can order, along with a description of each dish. When you
+specify what menu items you want, the restaurant's kitchen does the work and provides you with
+some finished dishes. You don't know exactly how the restaurant prepares that food, and you don't
+really need to.
+
+Similarly, an API lists operations that developers can use, along with a description of
+what they do. The developer doesn't necessarily need to know how the API internally performs the
+desired operation. All they need to know is what the API expects as input, what the API does, and
+what the API returns as output.
+
+The TuffySearch API is a Web API, which means that it can be accessed over the internet using the
+same protocols that web browsers use to access web pages (HTTP), and returns data in the JSON format.
+You can read more about the HTTP Protocol [here](https://developer.mozilla.org/en-US/docs/Web/HTTP).
+
+## What is a **REST** API?
+
+The TuffySearch API is a **REST** API. REST stands for **RE**presentational **S**tate **T**ransfer.
+To put it simply, REST is an architectural style for building APIs. It is not a standard, but rather
+a set of constraints that an API must follow to be considered RESTful. You can read more about REST
+[here](https://restfulapi.net/). One key constraint of REST is that it is stateless, meaning that
+each request is independent of any other request. This means that the server does not need to keep
+track of any information about the client between requests.
+
+Additionally, all resources in a REST API are accessible through endpoints. A resource is an object that can be
+accessed and manipulated by the API. For example, in the case of the TuffySearch API, a resource
+could be a course. Each resource has a unique identifier, which is used to access that resource
+like so:
+
+```bash
+GET /api/courses/course_id/538057
+```
+
+## How do I get started?
+
+To get started, you can use your favorite HTTP client or programming language to make requests to
+the TuffySearch API. Some popular HTTP clients include [Postman](https://www.postman.com/) and
+[httpie](https://httpie.io/). You can also use your favorite programming language to make requests.
+Here are some examples of how to make requests using different programming languages:
+
+<Tabs items={["Python", "JavaScript/TypeScript"]}>
+    <Tabs.Tab>
+        ```python filename="main.py" copy
+        import requests
+
+        # Make a GET request to the TuffySearch API
+        response = requests.get("https://tuffysearch.com/api/courses/course_id/538057")
+
+        # Print the response
+        print(response.json())
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```javascript filename="main.js" copy
+        async function showCourse() {
+            // Make a GET request to the TuffySearch API
+            const response = await fetch("https://tuffysearch.com/api/courses/course_id/538057");
+
+            // Print the response
+            console.log(await response.json());
+        }
+        ```
+    </Tabs.Tab>
+
+</Tabs>

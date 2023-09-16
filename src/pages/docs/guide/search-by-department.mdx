@@ -12,8 +12,20 @@ GET /courses/department/{department}
 
 ### Parameters
 
-`department` - The department to search for. This can be either the department's **name** or the **abbreviation**.
-If there are spaces in the department name, replace them with a dash (`-`).
+| Name         | Description                                                                                           | Example                    |
+| ------------ | ----------------------------------------------------------------------------------------------------- | -------------------------- |
+| `department` | A department abbreviation **OR** full name. Letters must be correctly capitalized if using full name. | `CPSC`, `Computer-Science` |
+
+### Responses
+
+| Code  | Description                                       |
+| ----- | ------------------------------------------------- |
+| `200` | A JSON Object containing a list of `CourseObject` |
+| `400` | Client Error. Malformed request syntax            |
+| `404` | Course not found                                  |
+| `405` | The request method was not `GET`                  |
+| `429` | Too many requests. Client was rate limited        |
+| `500` | An unknown internal server error occurred         |
 
 ### Response Example
 
