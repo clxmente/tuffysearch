@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib/utils";
 
-import { ThemeProvider } from "@/app/providers";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import { Inter } from "next/font/google";
 import { TopNav } from "@/components/top-nav";
@@ -46,8 +46,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "mx-auto max-w-[90rem]")}>
-        <ThemeProvider attribute="class">
+      <body className={cn(inter.className, "")}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TopNav />
           {children}
         </ThemeProvider>

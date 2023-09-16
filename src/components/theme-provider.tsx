@@ -2,12 +2,8 @@
 
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-type ThemeProviderProps = Parameters<typeof NextThemesProvider>[0];
+import { type ThemeProviderProps } from "next-themes/dist/types";
 
-/**
- * Your app's theme provider component.
- * 'use client' is essential for next-themes to work with app-dir.
- */
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
