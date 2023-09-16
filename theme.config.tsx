@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useRouter } from "next/router";
+import { useConfig } from "nextra-theme-docs";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
 const logo = (
@@ -46,6 +47,39 @@ const config: DocsThemeConfig = {
     "https://github.com/clxmente/tuffysearch/tree/main/pages/docs",
   footer: {
     text: "MIT 2023 | Made with ❤️ by clemente",
+  },
+  head: function useHead() {
+    const { title } = useConfig();
+
+    return (
+      <>
+        <meta
+          name="description"
+          content="TuffySeach API Documentation. Search the CSUF course catalog with ease using the TuffySearch REST API."
+        />
+        <meta
+          name="keywords"
+          content="tuffysearch, api, documentation, csuf, course, catalog, search, csu fullerton, class, schedule"
+        />
+
+        <meta
+          name="og:description"
+          content="TuffySeach API Documentation. Search the CSUF course catalog with ease using the TuffySearch REST API."
+        />
+        <meta
+          name="og:title"
+          content={title ? `${title} - TuffySearch` : "TuffySearch"}
+        />
+        <meta name="og:image" content="/tuffysearch.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@clxmente" />
+        <meta name="twitter:creator" content="@clxmente" />
+        <meta name="twitter:image" content="/tuffysearch.png" />
+
+        <meta name="apple-mobile-web-app-title" content="TuffySearch" />
+      </>
+    );
   },
   primaryHue: 28,
   gitTimestamp: function GitTimestamp({ timestamp }) {
