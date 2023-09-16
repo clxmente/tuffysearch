@@ -16,6 +16,7 @@ export function AnimateSearches() {
         1000,
       ]}
       repeat={Infinity}
+      className="after:text-orange-500 after:content-['|']"
     />
   );
 }
