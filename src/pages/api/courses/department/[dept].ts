@@ -23,7 +23,7 @@ const full_dept_names = new Set(Object.values(abbr_map));
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse<ResponseData>,
 ) {
   if (req.method !== "GET") {
     return res.status(405).json({
@@ -37,7 +37,7 @@ export default async function handler(
   }
 
   try {
-    await limiter.check(res, 10, "CACHE_TOKEN");
+    await limiter.check(res, 100, "CACHE_TOKEN");
   } catch {
     return res.status(429).json({
       success: false,
@@ -92,7 +92,7 @@ export default async function handler(
 
     const query_res = await conn.execute(
       "SELECT * FROM courses WHERE department = ?",
-      [clean_dept]
+      [clean_dept],
     );
 
     return res.status(200).json({
