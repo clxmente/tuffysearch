@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function SearchPage() {
   return (
-    <main className="mx-auto flex max-w-4xl flex-col items-center justify-center space-y-8 px-5 py-8 md:min-h-[calc(100vh-64px)] md:px-8 md:py-0">
+    <main className="mx-auto flex max-w-4xl flex-col items-center justify-center space-y-8 px-5 py-8 md:min-h-[calc(100vh-64px)] md:px-8">
       <div className="flex flex-col gap-4 selection:bg-orange-500">
         <h1 className="text-3xl font-bold text-neutral-800 dark:text-white md:text-5xl">
           Search CSUF Courses

@@ -26,7 +26,10 @@ import { Search, ChevronLeft, ChevronRight, Copy } from "lucide-react";
 
 function SkeletonLoader() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex-col space-y-4">
+      <Button variant="secondary" disabled>
+        Show All Results
+      </Button>
       <Card className="h-[194px] w-full">
         <CardHeader>
           <CardTitle className="flex items-start justify-between">
@@ -125,7 +128,7 @@ export function SearchCourses() {
     <div className="flex w-full flex-col gap-4">
       <Form {...form}>
         <form
-          className="flex w-full items-center space-x-2"
+          className="flex items-center space-x-2"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
