@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 import { useState } from "react";
+import { trackGoal } from "fathom-client";
 
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -68,7 +68,10 @@ export function MobileNav() {
                 variant="outline"
                 className="h-14 w-full justify-start"
                 asChild
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  trackGoal("DUKQOLSN", 0);
+                }}
               >
                 <a
                   href="https://github.com/clxmente/tuffysearch"

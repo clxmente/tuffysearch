@@ -2,11 +2,10 @@
 
 import { useEffect, Suspense } from "react";
 import { load, trackPageview } from "fathom-client";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function TrackPageView() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // load fathom script on mount
   useEffect(() => {
@@ -21,10 +20,10 @@ function TrackPageView() {
     if (!pathname) return;
 
     trackPageview({
-      url: pathname + searchParams?.toString(),
+      url: pathname,
       referrer: document.referrer,
     });
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }
