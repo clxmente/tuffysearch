@@ -16,7 +16,7 @@ Searches the CSUF course catalog for a course with the given course code.
 ### Endpoint
 
 ```bash
-GET /courses/course_code/{course_code}
+GET /courses?course_code={course_code}
 ```
 
 ### Parameters
@@ -38,7 +38,7 @@ GET /courses/course_code/{course_code}
 
 ### Response Example
 
-```json filename="GET /courses/course_code/CPSC-121"
+```json filename="GET /courses?course_code=CPSC-121"
 {
   "success": true,
   "data": [

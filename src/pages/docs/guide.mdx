@@ -5,10 +5,19 @@ import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 <small>Information and examples on how to use the API.</small>
 
+## Base URL
+
+All endpoints in the API have the same base URL:
+
+```
+https://tuffysearch.com/api
+```
+
 ## Endpoint Guides
 
-Examples and code snippets will be available on each page. Here is a list of
-endpoints available in the API:
+### `/courses`
+
+Examples and code snippets will be available on each page. Here is a list of possible queries you can make:
 
 <Cards>
   <Card
@@ -33,13 +42,20 @@ endpoints available in the API:
   />
 </Cards>
 
-## Base URL
+#### Parameters
 
-All endpoints in the API have the same base URL:
+All parameters are optional. If no parameters are provided, all courses will be returned **(currently disabled)**.
+If multiple parameters are provided, the API will use the parameter with the highest priority. The order of priority is as follows:
 
-```
-https://tuffysearch.com/api
-```
+1. `course_id`
+2. `course_code`
+3. `dept`
+
+| Name          | Description                                                                                           | Example                    |
+| ------------- | ----------------------------------------------------------------------------------------------------- | -------------------------- |
+| `course_id`   | The ID of the course to search for.                                                                   | `538057`                   |
+| `course_code` | A code containing an abbreviated department and course number                                         | `CPSC-121`                 |
+| `dept`        | A department abbreviation **OR** full name. Letters must be correctly capitalized if using full name. | `CPSC`, `Computer-Science` |
 
 ## Response Structure
 

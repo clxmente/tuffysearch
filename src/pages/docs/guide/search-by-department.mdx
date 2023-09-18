@@ -7,14 +7,14 @@ Searches the CSUF course catalog for courses from a given department.
 ### Endpoint
 
 ```bash
-GET /courses/department/{department}
+GET /courses?dept={department}
 ```
 
 ### Parameters
 
-| Name         | Description                                                                                           | Example                    |
-| ------------ | ----------------------------------------------------------------------------------------------------- | -------------------------- |
-| `department` | A department abbreviation **OR** full name. Letters must be correctly capitalized if using full name. | `CPSC`, `Computer-Science` |
+| Name   | Description                                                                                           | Example                    |
+| ------ | ----------------------------------------------------------------------------------------------------- | -------------------------- |
+| `dept` | A department abbreviation **OR** full name. Letters must be correctly capitalized if using full name. | `CPSC`, `Computer-Science` |
 
 ### Responses
 
@@ -29,7 +29,7 @@ GET /courses/department/{department}
 
 ### Response Example
 
-```json filename="GET /courses/department/CPSC"
+```json filename="GET /courses?dept=CPSC"
 {
   "success": true,
   "data": [

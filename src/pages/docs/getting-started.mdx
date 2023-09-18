@@ -35,7 +35,7 @@ could be a course. Each resource has a unique identifier, which is used to acces
 like so:
 
 ```bash
-GET /api/courses/course_id/538057
+GET /api/courses?course_id=538057
 ```
 
 ## How do I get started?
@@ -51,7 +51,7 @@ Here are some examples of how to make requests using different programming langu
         import requests
 
         # Make a GET request to the TuffySearch API
-        response = requests.get("https://tuffysearch.com/api/courses/course_id/538057")
+        response = requests.get("https://tuffysearch.com/api/courses?course_id=538057")
 
         # Print the response
         print(response.json())
@@ -61,7 +61,7 @@ Here are some examples of how to make requests using different programming langu
         ```javascript filename="main.js" copy
         async function showCourse() {
             // Make a GET request to the TuffySearch API
-            const response = await fetch("https://tuffysearch.com/api/courses/course_id/538057");
+            const response = await fetch("https://tuffysearch.com/api/courses?course_id=538057");
 
             // Print the response
             console.log(await response.json());
