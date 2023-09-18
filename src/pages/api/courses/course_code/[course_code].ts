@@ -65,8 +65,6 @@ export default async function handler(
     let clean_cc = course_code.toUpperCase();
     clean_cc = clean_cc.replace("-", " ").replace("_", " ");
 
-    console.log(clean_cc);
-
     const query_res = await conn.execute(
       "SELECT * FROM courses WHERE course_code = ?",
       [clean_cc],
