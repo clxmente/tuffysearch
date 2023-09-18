@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
+
 import { SearchCourses } from "@/components/search-courses";
+
+export const metadata: Metadata = {
+  title: "Search - TuffySearch",
+};
 
 export default function SearchPage() {
   return (
