@@ -64,6 +64,17 @@ export default async function handler(
   }
 
   // TODO: cleanup search_query
+  // simple check for length
+  if (search_query.length > 1000) {
+    return res.status(400).json({
+      success: false,
+      data: null,
+      error: {
+        message: "Search query is too long. Max 1000 characters allowed.",
+        code: "bad_request",
+      },
+    });
+  }
 
   try {
     // openai call to get the vector

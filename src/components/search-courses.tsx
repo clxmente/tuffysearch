@@ -60,7 +60,7 @@ function SkeletonLoader() {
 }
 
 const FormSchema = z.object({
-  search_query: z.string().nonempty(),
+  search_query: z.string().nonempty().max(1000),
 });
 
 async function wait(ms: number) {

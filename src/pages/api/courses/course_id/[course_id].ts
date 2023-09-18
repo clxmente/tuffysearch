@@ -59,9 +59,20 @@ export default async function handler(
       [int_course_id],
     );
 
+    if (query_res.size === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message: `Course with course_id ${int_course_id} not found`,
+          code: "course_not_found",
+        },
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      data: query_res.size > 0 ? (query_res.rows[0] as CourseObject) : null,
+      data: query_res.rows[0] as CourseObject,
     });
   } catch (error) {
     return res.status(500).json({

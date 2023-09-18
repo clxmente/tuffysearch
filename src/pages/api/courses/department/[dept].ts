@@ -80,12 +80,12 @@ export default async function handler(
       !abbr_map.hasOwnProperty(dept.toUpperCase()) &&
       !full_dept_names.has(clean_dept)
     ) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         data: null,
         error: {
           message: "No department found with the given parameters.",
-          code: "not_found",
+          code: "bad_request",
         },
       });
     }
@@ -95,9 +95,20 @@ export default async function handler(
       [clean_dept],
     );
 
+    if (query_res.size === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message: "No courses found for the given department.",
+          code: "not_found",
+        },
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      data: query_res.size > 0 ? (query_res.rows as CourseObject[]) : null,
+      data: query_res.rows as CourseObject[],
     });
   } catch (error) {
     return res.status(500).json({

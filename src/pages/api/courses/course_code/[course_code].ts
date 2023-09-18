@@ -70,9 +70,20 @@ export default async function handler(
       [clean_cc],
     );
 
+    if (query_res.size === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message: "Course not found.",
+          code: "course_not_found",
+        },
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      data: query_res.size > 0 ? (query_res.rows as CourseObject[]) : null,
+      data: query_res.rows as CourseObject[],
     });
   } catch (error) {
     return res.status(500).json({
