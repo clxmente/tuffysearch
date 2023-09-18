@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib/utils";
 
+import Fathom from "@/components/fathom";
 import { TopNav } from "@/components/top-nav";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "bg-white dark:bg-neutral-950")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Fathom />
           <TopNav />
           {children}
           <Toaster />
