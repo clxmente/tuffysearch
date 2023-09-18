@@ -2,6 +2,7 @@
 
 import * as z from "zod";
 
+import { trackGoal } from "fathom-client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
@@ -88,13 +89,14 @@ export function SearchCourses() {
   const onSubmit = useCallback(
     async (formData: z.infer<typeof FormSchema>) => {
       setLoading(true);
-      await wait(4000);
       const response = await fetch("/api/search", {
         method: "POST",
         body: JSON.stringify({ search_query: formData.search_query }),
       });
 
       const data = await response.json();
+
+      trackGoal("WUHLK7H0", 0);
 
       if (!data.success) {
         toast({

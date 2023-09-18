@@ -1,3 +1,6 @@
+"use client";
+
+import { trackGoal } from "fathom-client";
 import { Button } from "@/components/ui/button";
 
 export function GithubIcon() {
@@ -7,6 +10,7 @@ export function GithubIcon() {
       size="icon"
       asChild
       className="bg-transparent dark:bg-transparent"
+      onClick={() => trackGoal("DUKQOLSN", 0)}
     >
       <a
         href="https://github.com/clxmente/tuffysearch"
