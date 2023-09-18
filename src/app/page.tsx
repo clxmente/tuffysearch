@@ -2,13 +2,13 @@ import Link from "next/link";
 
 import { AnimateSearches } from "@/components/animate-searches";
 
-import { Search } from "lucide-react";
+import { Search, SendHorizontal } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col items-center justify-center space-y-8 px-5 pt-8 md:min-h-[calc(100vh-64px)] md:px-8 md:pt-0">
       <div className="flex max-w-4xl flex-col gap-4 selection:bg-orange-500">
-        <h1 className="text-6xl font-bold text-neutral-800 dark:text-white md:text-center md:text-7xl">
+        <h1 className="text-5xl font-bold text-neutral-800 dark:text-white md:text-center md:text-7xl">
           <span className="relative whitespace-nowrap text-orange-500 selection:text-sky-900">
             <svg
               aria-hidden="true"
@@ -29,25 +29,29 @@ export default function Home() {
           search the course catalog using natural language to find the perfect
           classes. An API for the course catalog is also available for
           developers to use. The documentation is available{" "}
-          <Link href="/docs" className="text-orange-500 hover:underline">
+          <Link
+            href="/docs"
+            className="text-orange-500 selection:text-sky-900 hover:underline dark:selection:text-sky-900"
+          >
             here
           </Link>
           .
         </p>
       </div>
 
-      <div className="w-full max-w-3xl rounded-2xl bg-neutral-400/10 p-4 dark:bg-neutral-900">
-        <div className="flex items-center justify-between rounded-2xl bg-neutral-500/10 px-5 py-3 dark:bg-neutral-800/50">
-          <div className="flex items-center space-x-3 rounded-2xl">
+      <div className="w-full max-w-3xl rounded-2xl bg-neutral-400/10 p-4 dark:bg-neutral-900/40">
+        <div className="flex items-center space-x-4 rounded-2xl bg-neutral-500/10 px-5 py-2 dark:bg-neutral-900/50">
+          <div className="flex w-full items-center space-x-3 rounded-2xl">
             <Search className="h-6 w-6 text-neutral-600 dark:text-neutral-500" />
             <input
               type="text"
               placeholder="Search for courses..."
-              className="bg-transparent text-lg text-neutral-600 outline-none placeholder:text-neutral-600 dark:text-neutral-500 dark:placeholder:text-neutral-500"
+              className="w-full bg-transparent text-lg text-neutral-600 outline-none placeholder:text-neutral-600 dark:text-neutral-500 dark:placeholder:text-neutral-500"
+              id="index-search"
             />
           </div>
           <button className="rounded-xl bg-gradient-to-tl from-orange-500 to-orange-300 px-4 py-2 font-semibold text-white hover:scale-95">
-            Let&apos;s Go!
+            <SendHorizontal className="h-6 w-6" />
           </button>
         </div>
       </div>

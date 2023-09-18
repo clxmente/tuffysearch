@@ -50,14 +50,25 @@ export default async function handler(
     });
   }
 
-  const { search_query } = req.body;
+  const { search_query } = JSON.parse(req.body);
+
+  if (!search_query) {
+    return res.status(400).json({
+      success: false,
+      data: null,
+      error: {
+        message: "Please provide a search query.",
+        code: "missing_search_query",
+      },
+    });
+  }
 
   // TODO: cleanup search_query
 
   try {
     // openai call to get the vector
     const response = await openai.embeddings.create({
-      input: [search_query],
+      input: search_query,
       model: "text-embedding-ada-002",
     });
 

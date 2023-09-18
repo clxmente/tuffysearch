@@ -4,10 +4,11 @@ import type { Metadata } from "next";
 
 import { cn } from "@/lib/utils";
 
+import { TopNav } from "@/components/top-nav";
+import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import { Inter } from "next/font/google";
-import { TopNav } from "@/components/top-nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,10 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "")}>
+      <body className={cn(inter.className, "bg-white dark:bg-neutral-950")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TopNav />
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
