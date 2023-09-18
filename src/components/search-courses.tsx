@@ -52,6 +52,9 @@ function SkeletonLoader() {
           <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
+      <p className="tetx-neutral-500 text-center text-sm dark:text-neutral-400">
+        Showing 1/20 results
+      </p>
     </div>
   );
 }
