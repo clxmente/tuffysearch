@@ -40,7 +40,7 @@ export function CourseSwitcher({ matches }: { matches: Matches[] }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Card className="h-[194px] w-full overflow-y-auto">
+      <Card className="h-[230px] w-full overflow-y-auto md:h-[194px]">
         <CardHeader>
           <CardTitle className="flex items-start justify-between">
             {`${matches[index].metadata.course_code}: ${matches[index].metadata.title}`}

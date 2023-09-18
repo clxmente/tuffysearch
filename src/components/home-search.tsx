@@ -40,7 +40,7 @@ export function HomeSearch() {
         </div>
         <button
           type="submit"
-          className="rounded-xl bg-gradient-to-tl from-orange-500 to-orange-300 px-4 py-2 font-semibold text-white hover:scale-95"
+          className="hidden rounded-xl bg-gradient-to-tl from-orange-500 to-orange-300 px-4 py-2 font-semibold text-white hover:scale-95 sm:flex"
         >
           <SendHorizontal className="h-6 w-6" />
         </button>
