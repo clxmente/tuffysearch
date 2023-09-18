@@ -1,8 +1,7 @@
 import Link from "next/link";
 
+import { HomeSearch } from "@/components/home-search";
 import { AnimateSearches } from "@/components/animate-searches";
-
-import { Search, SendHorizontal } from "lucide-react";
 
 export default function Home() {
   return (
@@ -39,22 +38,8 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="w-full max-w-3xl rounded-2xl bg-neutral-400/10 p-4 dark:bg-neutral-900/40">
-        <div className="flex items-center space-x-4 rounded-2xl bg-neutral-500/10 px-5 py-2 dark:bg-neutral-900/50">
-          <div className="flex w-full items-center space-x-3 rounded-2xl">
-            <Search className="h-6 w-6 text-neutral-600 dark:text-neutral-500" />
-            <input
-              type="text"
-              placeholder="Search for courses..."
-              className="w-full bg-transparent text-lg text-neutral-600 outline-none placeholder:text-neutral-600 dark:text-neutral-500 dark:placeholder:text-neutral-500"
-              id="index-search"
-            />
-          </div>
-          <button className="rounded-xl bg-gradient-to-tl from-orange-500 to-orange-300 px-4 py-2 font-semibold text-white hover:scale-95">
-            <SendHorizontal className="h-6 w-6" />
-          </button>
-        </div>
-      </div>
+      <HomeSearch />
+
       <div className="text-center font-semibold text-neutral-400 selection:bg-orange-500 selection:text-black dark:text-neutral-600 dark:selection:text-white md:text-3xl">
         <AnimateSearches />
       </div>

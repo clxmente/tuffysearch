@@ -2,9 +2,10 @@
 
 import * as z from "zod";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
 
 import {
   Form,
@@ -64,8 +65,15 @@ async function wait(ms: number) {
 }
 
 export function SearchCourses() {
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams?.get("q");
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      search_query: searchQuery ?? "",
+    },
   });
 
   const { toast } = useToast();
@@ -73,29 +81,40 @@ export function SearchCourses() {
   const [loading, setLoading] = useState(false);
   const [matches, setMatches] = useState([]);
 
-  async function onSubmit(formData: z.infer<typeof FormSchema>) {
-    setLoading(true);
-    await wait(4000);
-    const response = await fetch("/api/search", {
-      method: "POST",
-      body: JSON.stringify({ search_query: formData.search_query }),
-    });
-
-    const data = await response.json();
-
-    if (!data.success) {
-      toast({
-        title: data.error?.code ?? "Error",
-        description: data.error?.message ?? "Something went wrong.",
-        variant: "destructive",
+  // wrap onSubmit in a useCallback so that we can use it in useEffect
+  const onSubmit = useCallback(
+    async (formData: z.infer<typeof FormSchema>) => {
+      setLoading(true);
+      await wait(4000);
+      const response = await fetch("/api/search", {
+        method: "POST",
+        body: JSON.stringify({ search_query: formData.search_query }),
       });
-      setLoading(false);
-      return;
-    }
 
-    setMatches(data.data.matches);
-    setLoading(false);
-  }
+      const data = await response.json();
+
+      if (!data.success) {
+        toast({
+          title: data.error?.code ?? "Error",
+          description: data.error?.message ?? "Something went wrong.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
+      setMatches(data.data.matches);
+      setLoading(false);
+    },
+    [toast],
+  );
+
+  // if searchQuery is not null, then we should submit the form
+  useEffect(() => {
+    if (searchQuery) {
+      form.handleSubmit(onSubmit)();
+    }
+  }, [searchQuery, form, onSubmit]);
 
   return (
     <div className="flex w-full flex-col gap-4">
