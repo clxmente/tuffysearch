@@ -43,8 +43,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://acmcsuf.com/discord",
   },
-  docsRepositoryBase:
-    "https://github.com/clxmente/tuffysearch/tree/main/pages/docs",
+  docsRepositoryBase: "https://github.com/clxmente/tuffysearch/tree/main",
   footer: {
     text: "MIT 2023 | Made with ❤️ by clemente",
   },
