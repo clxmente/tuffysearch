@@ -32,7 +32,7 @@ function SkeletonLoader() {
       </Button>
       <Card className="h-[194px] w-full">
         <CardHeader>
-          <CardTitle className="flex items-start justify-between">
+          <CardTitle className="flex items-center justify-between">
             <Skeleton className="h-6 w-1/2 rounded-none" />
             <Button variant="outline" size="icon" disabled>
               <Copy className="h-5 w-5" />

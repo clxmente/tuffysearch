@@ -49,7 +49,7 @@ export function CourseSwitcher({ matches }: { matches: Matches[] }) {
         matches.map((match) => (
           <Card className="w-full overflow-y-auto" key={match.id}>
             <CardHeader>
-              <CardTitle className="flex items-start justify-between">
+              <CardTitle className="flex items-center justify-between">
                 {`${match.metadata.course_code}: ${match.metadata.title}`}
 
                 <TooltipProvider>
@@ -91,7 +91,7 @@ export function CourseSwitcher({ matches }: { matches: Matches[] }) {
         <>
           <Card className="h-[230px] w-full overflow-y-auto md:h-[194px]">
             <CardHeader>
-              <CardTitle className="flex items-start justify-between">
+              <CardTitle className="flex items-center justify-between">
                 {`${matches[index].metadata.course_code}: ${matches[index].metadata.title}`}
 
                 <TooltipProvider>
