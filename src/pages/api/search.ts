@@ -37,14 +37,14 @@ export default async function handler(
   }
 
   try {
-    await limiter.check(res, 100, "CACHE_TOKEN"); // 100 requests per minute
+    await limiter.check(res, 50, "CACHE_TOKEN"); // 50 requests per minute
   } catch {
     return res.status(429).json({
       success: false,
       data: null,
       error: {
         message:
-          "Too many requests. Rate Limit exceeded. 3 requests per minute allowed.",
+          "Too many requests. Rate Limit exceeded. 50 requests per minute allowed.",
         code: "rate_limited",
       },
     });
