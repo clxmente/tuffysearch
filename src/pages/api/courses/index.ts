@@ -53,20 +53,6 @@ export default async function handler(
     });
   }
 
-  try {
-    await limiter.check(res, 50, "CACHE_TOKEN"); // 50 requests per minute
-  } catch {
-    return res.status(429).json({
-      success: false,
-      data: null,
-      error: {
-        message:
-          "Too many requests. Rate Limit exceeded. 50 requests per minute allowed.",
-        code: "rate_limited",
-      },
-    });
-  }
-
   const { course_id, course_code, dept } = req.query;
 
   // we won't handle the case where multiple are provided
@@ -80,18 +66,73 @@ export default async function handler(
     return getByDepartment(req, res);
   }
 
-  return res.status(503).json({
-    success: false,
-    data: null,
-    error: {
-      message:
-        "Getting all courses is temporarily unavailable while I figure out the best way to return this data.",
-      code: "service_unavailable",
-    },
-  });
+  try {
+    await limiter.check(res, 10, "DEFAULT_CACHE_TOKEN"); // 10 requests per minute
+  } catch {
+    return res.status(429).json({
+      success: false,
+      data: null,
+      error: {
+        message:
+          "Too many requests. Rate Limit exceeded. 10 requests per minute allowed.",
+        code: "rate_limited",
+      },
+    });
+  }
+
+  try {
+    const _maxAge = 1 * 60 * 60 * 24 * 7; // 1 week
+    res.setHeader(
+      "Cache-Control",
+      `public, s-maxage=${_maxAge}, stale-while-revalidate`,
+    );
+
+    const query_res = await conn.execute("SELECT * FROM courses");
+
+    if (query_res.size === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message: "No courses found.",
+          code: "not_found",
+        },
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: query_res.rows as CourseObject[],
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      data: null,
+      error: {
+        message: `Internal server error: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+        code: "internal_server_error",
+      },
+    });
+  }
 }
 
 async function getByID(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+  } catch {
+    return res.status(429).json({
+      success: false,
+      data: null,
+      error: {
+        message:
+          "Too many requests. Rate Limit exceeded. 50 requests per minute allowed.",
+        code: "rate_limited",
+      },
+    });
+  }
+
   try {
     const { course_id } = req.query;
 
@@ -136,6 +177,20 @@ async function getByID(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function getByCourseCode(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+  } catch {
+    return res.status(429).json({
+      success: false,
+      data: null,
+      error: {
+        message:
+          "Too many requests. Rate Limit exceeded. 50 requests per minute allowed.",
+        code: "rate_limited",
+      },
+    });
+  }
+
   try {
     const { course_code } = req.query;
 
@@ -192,6 +247,20 @@ async function getByCourseCode(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function getByDepartment(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+  } catch {
+    return res.status(429).json({
+      success: false,
+      data: null,
+      error: {
+        message:
+          "Too many requests. Rate Limit exceeded. 50 requests per minute allowed.",
+        code: "rate_limited",
+      },
+    });
+  }
+
   try {
     const { dept } = req.query;
 
