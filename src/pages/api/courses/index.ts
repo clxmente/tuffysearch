@@ -67,7 +67,7 @@ export default async function handler(
   }
 
   try {
-    await limiter.check(res, 10, "DEFAULT_CACHE_TOKEN"); // 10 requests per minute
+    await limiter.check(res, 15, "DEFAULT_CACHE_TOKEN"); // 10 requests per minute
   } catch {
     return res.status(429).json({
       success: false,
@@ -87,32 +87,32 @@ export default async function handler(
     //   `public, s-maxage=${_maxAge}, stale-while-revalidate`,
     // );
 
-    const query_res = await conn.execute("SELECT * FROM courses");
+    // const query_res = await conn.execute("SELECT * FROM courses");
 
-    if (query_res.size === 0) {
-      return res.status(404).json({
-        success: false,
-        data: null,
-        error: {
-          message: "No courses found.",
-          code: "not_found",
-        },
-      });
-    }
+    // if (query_res.size === 0) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     data: null,
+    //     error: {
+    //       message: "No courses found.",
+    //       code: "not_found",
+    //     },
+    //   });
+    // }
 
-    return res.status(200).json({
-      success: true,
-      data: query_res.rows as CourseObject[],
-    });
-
-    // return res.status(503).json({
-    //   success: false,
-    //   data: null,
-    //   error: {
-    //     message: "This endpoint is temporarily disabled.",
-    //     code: "temporarily_disabled",
-    //   },
+    // return res.status(200).json({
+    //   success: true,
+    //   data: query_res.rows as CourseObject[],
     // });
+
+    return res.status(503).json({
+      success: false,
+      data: null,
+      error: {
+        message: "This endpoint is temporarily disabled.",
+        code: "temporarily_disabled",
+      },
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -129,7 +129,7 @@ export default async function handler(
 
 async function getByID(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+    await limiter.check(res, 100, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
   } catch {
     return res.status(429).json({
       success: false,
@@ -187,7 +187,7 @@ async function getByID(req: NextApiRequest, res: NextApiResponse) {
 
 async function getByCourseCode(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+    await limiter.check(res, 100, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
   } catch {
     return res.status(429).json({
       success: false,
@@ -257,7 +257,7 @@ async function getByCourseCode(req: NextApiRequest, res: NextApiResponse) {
 
 async function getByDepartment(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await limiter.check(res, 50, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
+    await limiter.check(res, 100, "GLOBAL_CACHE_TOKEN"); // 50 requests per minute
   } catch {
     return res.status(429).json({
       success: false,
