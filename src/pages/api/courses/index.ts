@@ -80,52 +80,51 @@ export default async function handler(
     });
   }
   /* ---------------------- TODO: find best way to cache ---------------------- */
-  // try {
-  //   const _maxAge = 1 * 60 * 60 * 24 * 7; // 1 week
-  //   res.setHeader(
-  //     "Cache-Control",
-  //     `public, s-maxage=${_maxAge}, stale-while-revalidate`,
-  //   );
+  try {
+    // const _maxAge = 1 * 60 * 60 * 24 * 7; // 1 week
+    // res.setHeader(
+    //   "Cache-Control",
+    //   `public, s-maxage=${_maxAge}, stale-while-revalidate`,
+    // );
 
-  //   const query_res = await conn.execute("SELECT * FROM courses");
+    const query_res = await conn.execute("SELECT * FROM courses");
 
-  //   if (query_res.size === 0) {
-  //     return res.status(404).json({
-  //       success: false,
-  //       data: null,
-  //       error: {
-  //         message: "No courses found.",
-  //         code: "not_found",
-  //       },
-  //     });
-  //   }
+    if (query_res.size === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message: "No courses found.",
+          code: "not_found",
+        },
+      });
+    }
 
-  //   return res.status(200).json({
-  //     success: true,
-  //     data: query_res.rows as CourseObject[],
-  //   });
+    return res.status(200).json({
+      success: true,
+      data: query_res.rows as CourseObject[],
+    });
 
-  return res.status(503).json({
-    success: false,
-    data: null,
-    error: {
-      message: "This endpoint is temporarily disabled.",
-      code: "temporarily_disabled",
-    },
-  });
-
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     data: null,
-  //     error: {
-  //       message: `Internal server error: ${
-  //         error instanceof Error ? error.message : "Unknown error"
-  //       }`,
-  //       code: "internal_server_error",
-  //     },
-  //   });
-  // }
+    // return res.status(503).json({
+    //   success: false,
+    //   data: null,
+    //   error: {
+    //     message: "This endpoint is temporarily disabled.",
+    //     code: "temporarily_disabled",
+    //   },
+    // });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      data: null,
+      error: {
+        message: `Internal server error: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+        code: "internal_server_error",
+      },
+    });
+  }
 }
 
 async function getByID(req: NextApiRequest, res: NextApiResponse) {
