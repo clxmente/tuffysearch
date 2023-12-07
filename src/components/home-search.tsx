@@ -1,9 +1,7 @@
 "use client";
 
 import { FormEvent } from "react";
-import { trackGoal } from "fathom-client";
 import { useRouter } from "next/navigation";
-
 import { Search, SendHorizontal } from "lucide-react";
 
 export function HomeSearch() {
@@ -20,7 +18,8 @@ export function HomeSearch() {
 
     if (!search_query) return;
 
-    trackGoal("O1DRSYQ2", 0);
+    // @ts-ignore
+    window.umami.track("Home Search");
 
     router.push(`/search?q=${encodeURIComponent(search_query)}`);
   }

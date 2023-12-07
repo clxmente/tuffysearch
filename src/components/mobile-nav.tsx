@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { useState } from "react";
-import { trackGoal } from "fathom-client";
 
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -70,7 +69,8 @@ export function MobileNav() {
                 asChild
                 onClick={() => {
                   setOpen(false);
-                  trackGoal("DUKQOLSN", 0);
+                  // @ts-ignore
+                  window.umami.track("View Github");
                 }}
               >
                 <a

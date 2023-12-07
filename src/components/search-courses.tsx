@@ -2,7 +2,6 @@
 
 import * as z from "zod";
 
-import { trackGoal } from "fathom-client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
@@ -99,7 +98,8 @@ export function SearchCourses() {
 
       const data = await response.json();
 
-      trackGoal("WUHLK7H0", 0);
+      // @ts-ignore
+      window.umami.track("Search");
 
       if (!data.success) {
         toast({

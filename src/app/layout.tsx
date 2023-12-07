@@ -2,9 +2,10 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 
+import Script from "next/script";
+
 import { cn } from "@/lib/utils";
 
-import Fathom from "@/components/fathom";
 import { TopNav } from "@/components/top-nav";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -48,9 +49,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Script
+        async
+        src="https://umami.lebron.cloud/script.js"
+        data-website-id="b6284fc3-05fa-48f9-9847-4a8f5f2ad40c"
+      />
       <body className={cn(inter.className, "bg-white dark:bg-neutral-950")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Fathom />
           <TopNav />
           {children}
           <Toaster />
