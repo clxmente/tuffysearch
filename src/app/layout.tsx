@@ -52,7 +52,7 @@ export default function RootLayout({
       <Script
         async
         src="https://umami.lebron.cloud/script.js"
-        data-website-id="b6284fc3-05fa-48f9-9847-4a8f5f2ad40c"
+        data-website-id="0f4e12df-bc65-4c89-8841-432c038a8a09"
       />
       <body className={cn(inter.className, "bg-white dark:bg-neutral-950")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
